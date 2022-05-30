@@ -1,0 +1,7 @@
+{
+  "name": "ProyectoTickets",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

@@ -17,6 +17,12 @@
           <ion-icon :icon="square" />
           <ion-label>Agregar Claves</ion-label>
         </ion-tab-button>
+        <form>
+          <ion-button href="/">
+            <ion-label>Cerrar sesión</ion-label>
+          </ion-button>
+        </form>
+
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
@@ -26,6 +32,8 @@
 import { defineComponent } from 'vue';
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
 import { ellipse, square, triangle } from 'ionicons/icons';
+//import firebase from 'firebase/compat';
+//import 'firebase/compat/auth';
 
 export default defineComponent({
   name: 'TabsPage',

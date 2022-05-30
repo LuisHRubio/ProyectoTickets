@@ -6,7 +6,7 @@
 
 <script>
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { initializeApp } from "firebase/app";
+import firebase from 'firebase/compat/app';
 import {getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { defineComponent } from 'vue';
 
@@ -48,8 +48,8 @@ const firebaseConfig = {
   appId: "1:493934538026:web:8a468c60a37e3f3058c253"
 };
 
-const app = initializeApp(firebaseConfig);
-console.log(app);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+console.log(firebaseApp);
 
 
 

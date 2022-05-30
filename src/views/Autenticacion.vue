@@ -2,17 +2,15 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Autenticación</ion-title>
+        <ion-title>Autenticación de usuario</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-card>
+      <ion-card class="center">
         <ion-card-header>
           <ion-card-title>Bienvenido al visualizador de claves y usuarios</ion-card-title>
           <ion-card-subtitle>Inicie sesión con su correo y contraseña</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <form @submit.prevent="signInWithEmailAndPassword(email,password)">
+          <form @submit.prevent="signIn(email,password)">
             <ion-item>
               <ion-label position="floating">Email</ion-label>
               <ion-input v-model="email"></ion-input>
@@ -23,57 +21,55 @@
             </ion-item>
             <ion-button expand="block" color="primary" class="ion-margin-top" type="submit">Iniciar sesión</ion-button>
           </form>
-        </ion-card-content>
-        <ion-card-content v-if="errorMessage" class="error-message">
-          {{errorMessage}}
-        </ion-card-content>
+
+          <p v-if="errorMessage" class="error-message">{{errorMessage}}</p>
+        </ion-card-header>
       </ion-card>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCardContent,IonInput,IonButton,IonItem,IonLabel} from '@ionic/vue';
-import {getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+<script>
+import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader,IonInput,IonButton,IonItem,IonLabel} from '@ionic/vue';
+//import {getAuth, /*signInWithEmailAndPassword*/ } from "firebase/auth";
+//import { initializeApp } from "firebase/app";
+//import { getDatabase, ref, onValue } from "firebase/database";
 import { reactive,toRefs } from "vue";
 import { useRouter }from "vue-router";
 
-enum AuthMode
-{
-  SignIn,
-  SignUp
-};
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 export default{
-  name: 'Autenticacion',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCardContent,IonInput,IonButton,IonItem,IonLabel},
+  name: 'auth-screen',
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader,IonInput,IonButton,IonItem,IonLabel},
   setup(){
     const router = useRouter();
     const state = reactive({
       name: "",
       email: "",
       password: "",
-      mode: AuthMode.SignIn,
-      errorMessage: "",
+      errorMessage: ""
     });
-    const signInWithEmailAndPassword = async (email:string, password:string) =>{
+    const signIn = async (email, password) =>{
       try {
         if(!email || !password){
           state.errorMessage = "Falta correo o contraseña";
           return;
         }
-        await auth.signInWithEmailAndPassword(email,password);
+        await firebase.auth().signInWithEmailAndPassword(email,password);
         router.push("/tabs/tab1");
       }catch(error){
+        console.log(error)
+        if (error=="auth/invalid-email"){
+          state.errorMessage = "Correo o contraseña incorrectos";
+        }
           state.errorMessage = error.message;
       }
     }
     return {
       ...toRefs(state),
-      signInWithEmailAndPassword,
-      AuthMode
+      signIn,
     }
   }
 };

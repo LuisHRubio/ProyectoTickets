@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "dist",
+    "site": "proyectotickets-faf62",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",

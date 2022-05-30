@@ -18,7 +18,7 @@ export default defineComponent({
   },
   created(){
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, "ralejandrobm@gmail.com", "alex00")
+    signInWithEmailAndPassword(auth, "prueba@gmail.com", "prueba")
         .then((userCredential) => {
     // Signed in
           const user = userCredential.user;
@@ -49,6 +49,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+console.log(app);
 
 
 

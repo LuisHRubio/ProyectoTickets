@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 3</ion-title>
+        <ion-title>Creador de claves nuevas</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -45,7 +45,7 @@ export default{
       var errores = 0;
       for (i = 0; i < this.claves; i++) {
         push(ref(db, "claves/"), {
-          status: "",
+          status: "sin generar",
           usuario: "",
         })
             .then(async () => {

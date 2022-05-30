@@ -2,15 +2,28 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
+        <ion-title>Tabla de claves</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-      </ion-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>Clave</div>
+          </ion-col>
+          <ion-col>
+            <div>Status</div>
+          </ion-col>
+        </ion-row>
+        <ion-row v-for="(item,index) in listaClaves" :key="index">
+          <ion-col>
+            <div>{{ listaKeys[index] }}</div>
+          </ion-col>
+          <ion-col>
+            <div>{{ item.status }}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     
       <ExploreContainer name="Tab 1 page" />
     </ion-content>

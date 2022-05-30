@@ -5,7 +5,7 @@ import TabsPage from '../views/TabsPage.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    component: () => import('@/views/Autenticacion.vue')
   },
   {
     path: '/tabs/',

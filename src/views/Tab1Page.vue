@@ -9,10 +9,10 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <div>Clave</div>
+            <div class="subtitle">Clave</div>
           </ion-col>
           <ion-col>
-            <div>Status</div>
+            <div class="subtitle">Status</div>
           </ion-col>
         </ion-row>
         <ion-row v-for="(item,index) in listaClaves" :key="index">
@@ -24,19 +24,54 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    
-      <ExploreContainer name="Tab 1 page" />
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+//import { defineComponent } from 'vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonCol,IonGrid,IonRow } from '@ionic/vue';
+//import ExploreContainer from '@/components/ExploreContainer.vue';
+import { getDatabase, ref, onValue } from "firebase/database";
 
-export default  defineComponent({
+export default  {
   name: 'Tab1Page',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-});
+  components: { /*ExploreContainer, */IonHeader, IonToolbar, IonTitle, IonContent, IonPage,IonCol,IonGrid,IonRow },
+  mounted() {
+    const db = getDatabase();
+    const starCountRef = ref(db, "claves/");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      var cont = 0
+      snapshot.forEach(element => {
+        this.listaKeys[cont]=element.key
+        this.listaClaves[cont] = element.toJSON()
+        cont++
+      });
+    });
+    console.log("lista de claves", this.listaCaves);
+  },
+  data(){ return{
+    listaClaves: [{status:"", usuario:""}],
+    listaKeys:[]
+  }}
+};
+
 </script>
+
+<style>
+  div{
+    color:#000000;
+  }
+
+  .subtitle{
+    font-weight: bold;
+  }
+
+  ion-col > div {
+    background-color: #f7f7f7;
+    border: solid 1px #ddd;
+    padding: 10px;
+  }
+</style>

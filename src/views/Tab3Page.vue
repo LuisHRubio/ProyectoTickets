@@ -45,7 +45,7 @@ export default{
       var errores = 0;
       for (i = 0; i < this.claves; i++) {
         push(ref(db, "claves/"), {
-          status: "",
+          status: "sin generar",
           usuario: "",
         })
             .then(async () => {

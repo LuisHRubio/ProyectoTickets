@@ -6,7 +6,28 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Bienvenido al visualizador de claves y usuarios</ion-card-title>
+          <ion-card-subtitle>Inicie sesión con su correo y contraseña</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <form @submit.prevent="signInWithEmailAndPassword(email,password)">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input v-model="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input v-model="password" type="password"></ion-input>
+            </ion-item>
+            <ion-button expand="block" color="primary" class="ion-margin-top" type="submit">Iniciar sesión</ion-button>
+          </form>
+        </ion-card-content>
+        <ion-card-content v-if="errorMessage" class="error-message">
+          {{errorMessage}}
+        </ion-card-content>
+      </ion-card>
     </ion-content>
   </ion-page>
 </template>

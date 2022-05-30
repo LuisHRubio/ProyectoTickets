@@ -6,37 +6,32 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <div class="subtitle">Clave</div>
-          </ion-col>
-          <ion-col>
-            <div class="subtitle">Status</div>
-          </ion-col>
-        </ion-row>
-        <ion-row v-for="(item,index) in listaClaves" :key="index">
-          <ion-col>
-            <div>{{ listaKeys[index] }}</div>
-          </ion-col>
-          <ion-col>
-            <div>{{ item.status }}</div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-list>
+
+        <ion-item v-for="(item,index) in listaClaves" :key="index">
+          <ion-avatar slot="start">
+          </ion-avatar>
+          <ion-label>
+            <h2>Clave: {{listaKeys[index]}}</h2>
+            <h4>Status: {{item.status}} </h4>
+            <p>Usuario: {{item.usuario}} </p>
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 //import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonCol,IonGrid,IonRow } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import { getDatabase, ref, onValue } from "firebase/database";
 
 export default  {
   name: 'Tab1Page',
-  components: { /*ExploreContainer, */IonHeader, IonToolbar, IonTitle, IonContent, IonPage,IonCol,IonGrid,IonRow },
+  components: { /*ExploreContainer, */IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
   mounted() {
     const db = getDatabase();
     const starCountRef = ref(db, "claves/");

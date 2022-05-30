@@ -15,7 +15,7 @@
         
         <ion-tab-button tab="tab3" href="/tabs/tab3">
           <ion-icon :icon="square" />
-          <ion-label>Agregar claves</ion-label>
+          <ion-label>Agregar Claves</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
